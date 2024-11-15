@@ -33,6 +33,12 @@ namespace LearnProject
         }
 
 
+        private void OnDestroy()
+        {
+            LessonsTileManager.OnSceneChangeWithDelay -= OnSceneChange;
+        }
+
+
         private void OnSceneChange(float duration)
         {
             _sceneTransform.DOScale(_transitionImageSize, duration);
