@@ -14,12 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Clip: {fileID: 0}
   Datas:
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 0
-    <ScoreToAdd>k__BackingField: 0
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 0
-    <ScoreToAdd>k__BackingField: 0
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 0
-    <ScoreToAdd>k__BackingField: 0
+  - {<Sprite>k__BackingField: {fileID: 0}, _isCorrect: 0, <ScoreToAdd>k__BackingField: 0}
+  - {<Sprite>k__BackingField: {fileID: 0}, _isCorrect: 0, <ScoreToAdd>k__BackingField: 0}
+  - {<Sprite>k__BackingField: {fileID: 0}, _isCorrect: 0, <ScoreToAdd>k__BackingField: 0}
