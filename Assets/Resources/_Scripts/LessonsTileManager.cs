@@ -9,12 +9,12 @@ namespace LearnProject
 {
     public class LessonsTileManager : MonoBehaviour
     {
+        [SerializeField] private RectTransform _transitionRT;
         [SerializeField] private RectTransform _tilesLayout;
         [SerializeField] private LessonTile _lessonTilePrefab;
         [SerializeField] private DataBundleForLessonTileSO[] _lessonsBundleData;
-        [SerializeField] private float _sceneLoadDelay = 0.5f;
+
         private AsyncOperationHandle<SceneInstance> _loadHangle;
-        public static event Action<float> OnSceneChangeWithDelay;
 
         private void Awake()
         {
@@ -32,10 +32,8 @@ namespace LearnProject
             tile.TileText.text = lessonTileData.LessonName;
             tile.TileButton.onClick.AddListener(async () =>
             {
-                OnSceneChangeWithDelay?.Invoke(_sceneLoadDelay);
-                await Awaitable.WaitForSecondsAsync(_sceneLoadDelay);
+                await AnimationManager.PlayTransitionAsync(_transitionRT, 0, 1);
                 _loadHangle = Addressables.LoadSceneAsync(lessonTileData.Scene, LoadSceneMode.Single, false);
-
                 _loadHangle.Completed += ((AsyncOperationHandle<SceneInstance> asyncScene) =>
                 {
                     if (asyncScene.Status == AsyncOperationStatus.Succeeded)

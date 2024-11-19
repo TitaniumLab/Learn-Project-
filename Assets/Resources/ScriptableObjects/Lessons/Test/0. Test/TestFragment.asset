@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6721b7ab8912514a82a1629c72d4728, type: 3}
   m_Name: TestFragment
   m_EditorClassIdentifier: 
-  _type: 1
-  _vClip: {fileID: 0}
+  _type: 0
+  _vClip: {fileID: 32900000, guid: f71fa180b50d4ef4e90bf84cabba269c, type: 3}
   _aClip: {fileID: 0}
   _answers:
   - <Sprite>k__BackingField: {fileID: 0}

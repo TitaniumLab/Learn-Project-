@@ -1,53 +1,18 @@
 using DG.Tweening;
+using System.Threading.Tasks;
 using UnityEngine;
 
 namespace LearnProject
 {
-    public class AnimationManager : MonoBehaviour
+    public class AnimationManager
     {
-        [SerializeField] private RectTransform _uiParent;
-        [Header("Scene transition")]
-        [SerializeField] private RectTransform _sceneTransitionPrefab;
-        private RectTransform _sceneTransform;
-        [SerializeField] private bool _isLessonScene = true;
-        [SerializeField] private float _appearDuration = 0.5f;
-        [SerializeField] private float _transitionImageSize = 6;
+        private static float _halfTransitionDuration = 1f;
 
 
-        private void Awake()
+        public static Task PlayTransitionAsync(RectTransform rectTransform, float startScale, float finalScale)
         {
-            _sceneTransform = Instantiate(_sceneTransitionPrefab, _uiParent);
-
-            if (_isLessonScene)
-            {
-                _sceneTransform.localScale = Vector3.one * _transitionImageSize;
-                OnSceneEnter();
-            }
-            else
-            {
-                _sceneTransform.localScale = Vector3.zero;
-            }
-
-
-            LessonsTileManager.OnSceneChangeWithDelay += OnSceneChange;
-        }
-
-
-        private void OnDestroy()
-        {
-            LessonsTileManager.OnSceneChangeWithDelay -= OnSceneChange;
-        }
-
-
-        private void OnSceneChange(float duration)
-        {
-            _sceneTransform.DOScale(_transitionImageSize, duration);
-        }
-
-
-        private void OnSceneEnter()
-        {
-            _sceneTransform.DOScale(0, _appearDuration);
+            rectTransform.transform.localScale = Vector3.one * startScale;
+            return rectTransform.DOScale(finalScale, _halfTransitionDuration).AsyncWaitForCompletion();
         }
     }
 }
