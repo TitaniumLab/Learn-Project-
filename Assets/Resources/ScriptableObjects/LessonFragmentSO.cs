@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Video;
 
@@ -22,6 +23,13 @@ namespace LearnProject
         {
             PlayVideo = 0,
             ChooseCorrectAnswer = 1
+        }
+
+
+        private void OnValidate()
+        {
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssetIfDirty(this);
         }
     }
 
