@@ -1,3 +1,4 @@
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 
@@ -9,5 +10,12 @@ namespace LearnProject
         [field: SerializeField] public AssetReference Scene { get; private set; }
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public string LessonName { get; private set; }
+
+
+        private void OnValidate()
+        {
+            EditorUtility.SetDirty(this);
+            AssetDatabase.SaveAssetIfDirty(this);
+        }
     }
 }
