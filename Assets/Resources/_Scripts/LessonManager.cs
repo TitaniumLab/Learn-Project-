@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Video;
 using static LearnProject.LessonFragmentSO;
 
 namespace LearnProject
@@ -10,14 +9,14 @@ namespace LearnProject
         [SerializeField] private LessonFragmentSO[] _lessonFragments;
         private int _count = 0;
 
-        //private LessonPresetUI _lessonUI;
-        private ILessonFragment _videoF, _questionnaireF;
+        private ILessonFragment _videoF, _chooseAnswerF;
 
         private void Awake()
         {
             var lessonUI = Instantiate(_lessonUIprefab);
 
             _videoF = lessonUI.VideoFragmentManager;
+            _chooseAnswerF = lessonUI.ChooseAnswerManager;
         }
 
         private void Start()
@@ -40,7 +39,7 @@ namespace LearnProject
                     await _videoF.PlayFragment(_lessonFragments[_count]);
                     break;
                 case LessonFragmentType.ChooseCorrectAnswer:
-
+                    await _chooseAnswerF.PlayFragment(_lessonFragments[_count]);
                     break;
             }
             Debug.Log($"Fragment played {_count}");

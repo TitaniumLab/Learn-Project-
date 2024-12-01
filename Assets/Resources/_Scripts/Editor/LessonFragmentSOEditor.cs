@@ -10,7 +10,7 @@ namespace LearnProject
     {
         private SerializedProperty _type;
 
-        private SerializedProperty _vClip;
+        private SerializedProperty _vPlayer;
 
         private SerializedProperty _chooseIntro, _chooseCorrect, _chooseUncorrect, _chooseCorrectHost, _chooseUncorrectHost;
         private SerializedProperty _answers;
@@ -18,7 +18,7 @@ namespace LearnProject
         private void OnEnable()
         {
             _type = serializedObject.FindProperty("_type");
-            _vClip = serializedObject.FindProperty("_vClip");
+            _vPlayer = serializedObject.FindProperty("_vPlayer");
             _chooseIntro = serializedObject.FindProperty("_chooseIntro");
             _chooseCorrect = serializedObject.FindProperty("_chooseCorrect");
             _chooseUncorrect = serializedObject.FindProperty("_chooseUncorrect");
@@ -36,7 +36,7 @@ namespace LearnProject
             switch (type)
             {
                 case LessonFragmentType.PlayVideo:
-                    EditorGUILayout.PropertyField(_vClip);
+                    EditorGUILayout.PropertyField(_vPlayer);
                     break;
 
                 case LessonFragmentType.ChooseCorrectAnswer:
@@ -49,12 +49,6 @@ namespace LearnProject
                     break;
             }
             serializedObject.ApplyModifiedProperties();
-        }
-
-        private void OnValidate()
-        {
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssetIfDirty(this);
         }
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TestFragment
   m_EditorClassIdentifier: 
   _type: 0
-  _vClip: {fileID: 32900000, guid: c3ca33d63024ec642b55fc2f71a43d3d, type: 3}
+  _vPlayer: {fileID: 0}
   _chooseIntro: {fileID: 0}
   _chooseCorrect: {fileID: 0}
   _chooseUncorrect: {fileID: 0}
