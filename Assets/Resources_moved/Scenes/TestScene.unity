@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2728accd9d81499e1d9255758224f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lessonBundlePrefab: {fileID: 8605225050111588493, guid: 506b41351daa4dd4b8b5957cfd111613, type: 3}
+  _lessonUIprefab: {fileID: 4752450059332443243, guid: 1c3af99034ea1ab478d2bb7dfac0e046, type: 3}
   _lessonFragments:
   - {fileID: 11400000, guid: 9b356604ed8d8004a87cb2a2708278d6, type: 2}
   - {fileID: 11400000, guid: 9b356604ed8d8004a87cb2a2708278d6, type: 2}
@@ -236,8 +236,8 @@ Camera:
   m_GameObject: {fileID: 695363238}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 1, g: 0.5420937, b: 0.216981, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -349,10 +349,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e218b79e568d97448b9cfa6bdfb2e0ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minTargetAspectRatio: {x: 16, y: 9}
-  _maxTargetAspectRatio: {x: 16, y: 9}
-  _minHViewSize: 4
-  _minViewSize: 6.5
+  _targetAspectRatio: {x: 16, y: 9}
 --- !u!1 &989056138
 GameObject:
   m_ObjectHideFlags: 0

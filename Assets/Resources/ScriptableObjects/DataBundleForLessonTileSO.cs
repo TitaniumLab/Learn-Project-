@@ -11,11 +11,13 @@ namespace LearnProject
         [field: SerializeField] public Sprite Sprite { get; private set; }
         [field: SerializeField] public string LessonName { get; private set; }
 
+        //private void OnValidate()
+        //{
+        //    //EditorUtility.SetDirty(this);
+        //    //AssetDatabase.SaveAssetIfDirty(this);
 
-        private void OnValidate()
-        {
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssetIfDirty(this);
-        }
+        //    AssetDatabase.SaveAssets();
+
+        //}
     }
 }

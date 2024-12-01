@@ -9,10 +9,16 @@ namespace LearnProject
         private Vector2 _rectCenter = new Vector2(0.5f, 0.5f);
         private Vector2 _previousScreen;
 
-        private void Start()
+        private void Awake()
         {
-            InvokeRepeating(nameof(SetCamera), 0, 0.5f);
+            SetCamera();
         }
+
+        private void Update()
+        {
+            SetCamera();
+        }
+
 
         public void SetCamera()
         {
@@ -37,7 +43,6 @@ namespace LearnProject
                     float relativeWidth = targetWidth / Screen.width;
                     Vector2 rectSize = new Vector2(relativeWidth, _defaultRectSize.y);
                     Camera.main.rect = new Rect(default, rectSize) { center = _rectCenter };
-                    Debug.Log($"New Camera Rect: {rectSize}");
                     Debug.Log($"New Camera Rect: {rectSize}");
                 }
                 _previousScreen = currentScreen;

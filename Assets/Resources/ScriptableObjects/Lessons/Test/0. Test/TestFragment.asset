@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: TestFragment
   m_EditorClassIdentifier: 
   _type: 0
-  _vClip: {fileID: 32900000, guid: f71fa180b50d4ef4e90bf84cabba269c, type: 3}
-  _aClip: {fileID: 0}
-  _answers:
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 1
-    <ScoreToAdd>k__BackingField: 0
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 0
-    <ScoreToAdd>k__BackingField: 0
-  - <Sprite>k__BackingField: {fileID: 0}
-    _isCorrect: 0
-    <ScoreToAdd>k__BackingField: 0
+  _vClip: {fileID: 32900000, guid: c3ca33d63024ec642b55fc2f71a43d3d, type: 3}
+  _chooseIntro: {fileID: 0}
+  _chooseCorrect: {fileID: 0}
+  _chooseUncorrect: {fileID: 0}
+  _chooseCorrectHost: {fileID: 0}
+  _chooseUncorrectHost: {fileID: 0}
+  _answers: []

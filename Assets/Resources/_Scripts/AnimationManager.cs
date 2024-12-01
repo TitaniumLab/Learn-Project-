@@ -4,15 +4,14 @@ using UnityEngine;
 
 namespace LearnProject
 {
-    public class AnimationManager
+    public static class AnimationManager
     {
-        private static float _halfTransitionDuration = 1f;
-
-
-        public static Task PlayTransitionAsync(RectTransform rectTransform, float startScale, float finalScale)
+        public static Task PlayScaleTransition(RectTransform rectTransform, float startScale, float endSclae, float duration)
         {
-            rectTransform.transform.localScale = Vector3.one * startScale;
-            return rectTransform.DOScale(finalScale, _halfTransitionDuration).AsyncWaitForCompletion();
+
+            rectTransform.localScale = Vector3.one * startScale;
+            var tween = rectTransform.DOScale(endSclae, duration);
+            return tween.AsyncWaitForCompletion();
         }
     }
 }

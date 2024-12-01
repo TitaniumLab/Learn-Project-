@@ -10,13 +10,21 @@ namespace LearnProject
     {
         // For some reason custom inspector can't read from [field: SerializeField] ..... ¯\_(ツ)_/¯
         [SerializeField] private LessonFragmentType _type;
+        // Play video fragment
         [SerializeField] private VideoClip _vClip;
-        [SerializeField] private AudioClip _aClip;
+        // Choose answer fragment
+        [SerializeField] private AudioClip _chooseIntro, _chooseCorrect, _chooseUncorrect, _chooseCorrectHost, _chooseUncorrectHost;
         [SerializeField] private AnswerData[] _answers;
 
         public LessonFragmentType Type { get { return _type; } }
+        // Play video
         public VideoClip VClip { get { return _vClip; } }
-        public AudioClip AClip { get { return _aClip; } }
+        // Choose answer
+        public AudioClip ChooseIntro { get { return _chooseIntro; } }
+        public AudioClip ChooseCorrect { get { return _chooseCorrect; } }
+        public AudioClip ChooseUncorrect { get { return _chooseUncorrect; } }
+        public AudioClip ChooseCorrectHost { get { return _chooseCorrectHost; } }
+        public AudioClip ChooseUncorrectHost { get { return _chooseUncorrectHost; } }
         public AnswerData[] Answers { get { return _answers; } }
 
         public enum LessonFragmentType
@@ -26,12 +34,17 @@ namespace LearnProject
         }
 
 
+
         private void OnValidate()
         {
-            EditorUtility.SetDirty(this);
-            AssetDatabase.SaveAssetIfDirty(this);
+            //EditorUtility.SetDirty(this);
+            //AssetDatabase.SaveAssetIfDirty(this);
+#if UNITY_EDITOR
+            AssetDatabase.SaveAssets();
+#endif
         }
     }
+
 
 
     [Serializable]
