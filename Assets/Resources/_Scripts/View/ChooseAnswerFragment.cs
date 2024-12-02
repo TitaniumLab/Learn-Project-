@@ -12,16 +12,29 @@ namespace LearnProject
         [SerializeField] private float _animDuration = 0.35f;
         private List<ChooseAnswerPreset> _answers = new List<ChooseAnswerPreset>();
 
-        //private AudioClip _intro, _correct, _uncorrect, _correctHost, _uncorrectHost;
         public Task PlayFragment(LessonFragmentSO fragment)
         {
-            CreateAnswers(fragment);
-            _vfxAS.Play();
+            CreateAnswers(fragment.ChooseAnswerData);
             return Task.CompletedTask;
         }
 
 
-        private void CreateAnswers(LessonFragmentSO fragment)
+        private void CreateAnswers(ChooseAnswerData data)
+        {
+            var buffer = data.Answers.ToList();
+            for (int i = 0; i < data.Answers.Length; i++)
+            {
+                int rand = Random.Range(0, buffer.Count);
+                var answer = buffer[rand];
+                var obj = Instantiate(_preset, transform);
+                obj.Image.sprite = answer.Sprite;
+                _answers.Add(obj);
+                buffer.RemoveAt(rand);
+            }
+        }
+
+
+        private void DestroyAnswers()
         {
             if (_answers.Count > 0)
             {
@@ -30,17 +43,6 @@ namespace LearnProject
                     Destroy(item.gameObject);
                 }
                 _answers.Clear();
-            }
-
-            var buffer = fragment.Answers.ToList();
-            for (int i = 0; i < fragment.Answers.Length; i++)
-            {
-                int rand = Random.Range(0, buffer.Count);
-                var answer = buffer[rand];
-                var obj = Instantiate(_preset, transform);
-                obj.Image.sprite = answer.Sprite;
-                _answers.Add(obj);
-                buffer.RemoveAt(rand);
             }
         }
     }

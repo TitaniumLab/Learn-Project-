@@ -69,7 +69,7 @@ VideoPlayer:
   m_PlayOnAwake: 0
   m_SkipOnDrop: 0
   m_Looping: 0
-  m_WaitForFirstFrame: 0
+  m_WaitForFirstFrame: 1
   m_FrameReadyEventEnabled: 0
   m_VideoShaders: []
 --- !u!1 &4578116048580714626
@@ -197,3 +197,4 @@ MonoBehaviour:
   _videoPlayer: {fileID: 5798364894930998810}
   _videoImage: {fileID: 9086055573039986099}
   _apperDuration: 0.5
+  _videoFolderName: Videos

@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d6721b7ab8912514a82a1629c72d4728, type: 3}
-  m_Name: TestFragment
+  m_Name: LessonFragmentSO
   m_EditorClassIdentifier: 
-  _type: 0
+  _type: 1
   _videoData:
-    <VideoFileName>k__BackingField: TestTrim
+    <VideoFileName>k__BackingField: 
   _chooseAnswerData:
     <ChooseIntro>k__BackingField: {fileID: 0}
     <ChooseCorrect>k__BackingField: {fileID: 0}

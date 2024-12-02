@@ -1,31 +1,21 @@
 ﻿using System;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.Video;
 
 namespace LearnProject
 {
     [CreateAssetMenu(fileName = "LessonFragmentSO", menuName = "Scriptable Objects/LessonFragmentSO")]
-    public class LessonFragmentSO : ScriptableObject
+    public class LessonFragmentSO : ScriptableObject, IVideoFragmentData, IChooseAnswerData
     {
         // For some reason custom inspector can't read from [field: SerializeField] ..... ¯\_(ツ)_/¯
         [SerializeField] private LessonFragmentType _type;
-        // Play video fragment
-        [SerializeField] private VideoPlayer _vPlayer;
-        // Choose answer fragment
-        [SerializeField] private AudioClip _chooseIntro, _chooseCorrect, _chooseUncorrect, _chooseCorrectHost, _chooseUncorrectHost;
-        [SerializeField] private AnswerData[] _answers;
+        private LessonFragmentType _oldType; // Allows to reset an object when changing its type
+        [SerializeField] private PlayVideoData _videoData;
+        [SerializeField] private ChooseAnswerData _chooseAnswerData;
 
+        public PlayVideoData PlayVideoData { get { return _videoData; } }
+        public ChooseAnswerData ChooseAnswerData { get { return _chooseAnswerData; } }
         public LessonFragmentType Type { get { return _type; } }
-        // Play video
-        public VideoPlayer VPlayer { get { return _vPlayer; } }
-        // Choose answer
-        public AudioClip ChooseIntro { get { return _chooseIntro; } }
-        public AudioClip ChooseCorrect { get { return _chooseCorrect; } }
-        public AudioClip ChooseUncorrect { get { return _chooseUncorrect; } }
-        public AudioClip ChooseCorrectHost { get { return _chooseCorrectHost; } }
-        public AudioClip ChooseUncorrectHost { get { return _chooseUncorrectHost; } }
-        public AnswerData[] Answers { get { return _answers; } }
+
 
         public enum LessonFragmentType
         {
@@ -36,13 +26,37 @@ namespace LearnProject
 
         private void OnValidate()
         {
-//#if UNITY_EDITOR
-//            EditorUtility.SetDirty(this);
-//            AssetDatabase.SaveAssetIfDirty(this);
-//#endif
+            // Reset object
+            if (_type != _oldType)
+            {
+                _videoData = new PlayVideoData();
+                _chooseAnswerData = new ChooseAnswerData();
+                _oldType = _type;
+            }
         }
     }
 
+    [Serializable]
+    public class PlayVideoData
+    {
+        /// <summary>
+        /// Put video in .../Assets/StreamingAssets/Videos/
+        /// </summary>
+        [Tooltip("Put video in .../Assets/StreamingAssets/Videos/")]
+        [field: SerializeField] public string VideoFileName { get; private set; }
+    }
+
+
+    [Serializable]
+    public class ChooseAnswerData
+    {
+        [field: SerializeField] public AudioClip ChooseIntro { get; private set; }
+        [field: SerializeField] public AudioClip ChooseCorrect { get; private set; }
+        [field: SerializeField] public AudioClip ChooseUncorrect { get; private set; }
+        [field: SerializeField] public AudioClip ChooseCorrectHost { get; private set; }
+        [field: SerializeField] public AudioClip ChooseUncorrectHost { get; private set; }
+        [field: SerializeField] public AnswerData[] Answers { get; private set; }
+    }
 
 
     [Serializable]

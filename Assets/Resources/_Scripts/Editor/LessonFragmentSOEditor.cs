@@ -9,22 +9,14 @@ namespace LearnProject
     public class LessonFragmentSOEditor : Editor
     {
         private SerializedProperty _type;
-
-        private SerializedProperty _vPlayer;
-
-        private SerializedProperty _chooseIntro, _chooseCorrect, _chooseUncorrect, _chooseCorrectHost, _chooseUncorrectHost;
-        private SerializedProperty _answers;
+        private SerializedProperty _videoData;
+        private SerializedProperty _chooseAnswerData;
 
         private void OnEnable()
         {
             _type = serializedObject.FindProperty("_type");
-            _vPlayer = serializedObject.FindProperty("_vPlayer");
-            _chooseIntro = serializedObject.FindProperty("_chooseIntro");
-            _chooseCorrect = serializedObject.FindProperty("_chooseCorrect");
-            _chooseUncorrect = serializedObject.FindProperty("_chooseUncorrect");
-            _chooseCorrectHost = serializedObject.FindProperty("_chooseCorrectHost");
-            _chooseUncorrectHost = serializedObject.FindProperty("_chooseUncorrectHost");
-            _answers = serializedObject.FindProperty("_answers");
+            _videoData = serializedObject.FindProperty("_videoData");
+            _chooseAnswerData = serializedObject.FindProperty("_chooseAnswerData");
         }
 
         public override void OnInspectorGUI()
@@ -36,16 +28,11 @@ namespace LearnProject
             switch (type)
             {
                 case LessonFragmentType.PlayVideo:
-                    EditorGUILayout.PropertyField(_vPlayer);
+                    EditorGUILayout.PropertyField(_videoData);
                     break;
 
                 case LessonFragmentType.ChooseCorrectAnswer:
-                    EditorGUILayout.PropertyField(_chooseIntro);
-                    EditorGUILayout.PropertyField(_chooseCorrect);
-                    EditorGUILayout.PropertyField(_chooseUncorrect);
-                    EditorGUILayout.PropertyField(_chooseCorrectHost);
-                    EditorGUILayout.PropertyField(_chooseUncorrectHost);
-                    EditorGUILayout.PropertyField(_answers);
+                    EditorGUILayout.PropertyField(_chooseAnswerData);
                     break;
             }
             serializedObject.ApplyModifiedProperties();

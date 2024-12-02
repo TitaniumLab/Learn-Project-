@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6367277415566446645}
-  - component: {fileID: 5068523921413119942}
+  - component: {fileID: 8398757400026975632}
   m_Layer: 5
   m_Name: LessonTilePrefab
   m_TagString: Untagged
@@ -38,7 +38,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5068523921413119942
+--- !u!114 &8398757400026975632
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 35.8
+  m_fontSize: 18
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -202,7 +202,7 @@ GameObject:
   - component: {fileID: 3716945447629781027}
   - component: {fileID: 436880157106752840}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Image/Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
