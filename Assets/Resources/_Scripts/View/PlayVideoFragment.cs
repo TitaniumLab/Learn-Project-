@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -33,7 +34,7 @@ namespace LearnProject
             _videoPlayer.loopPointReached += delegate { OnVideoEnd(); };
             _videoPlayer.Play();
 
-            await AnimationManager.PlayScaleTransition(_videoImage, 0, 1, _apperDuration);
+            await _videoImage.DOScale(1, _apperDuration).From(Vector3.zero).AsyncWaitForCompletion();
             bool end = false;
             while (!end)
             {
@@ -43,7 +44,7 @@ namespace LearnProject
             async void OnVideoEnd()
             {
                 _videoPlayer.loopPointReached -= delegate { OnVideoEnd(); };
-                await AnimationManager.PlayScaleTransition(_videoImage, 1, 0, _apperDuration);
+                await _videoImage.DOScale(0, _apperDuration).From(Vector3.one).AsyncWaitForCompletion();
                 Destroy(_videoPlayer.gameObject);
                 end = true;
             }

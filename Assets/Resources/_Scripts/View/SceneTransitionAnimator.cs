@@ -26,7 +26,7 @@ namespace LearnProject
         {
             if (_instance != null)
             {
-                return AnimationManager.PlayScaleTransition(_instance._rt, startScale, finalScale, _instance._duration);
+                return _instance._rt.DOScale(finalScale, _instance._duration).From(Vector3.one * startScale).AsyncWaitForCompletion();
             }
             Debug.LogWarning($"Instans of {typeof(SceneTransitionAnimator)} is null");
             return Task.CompletedTask;

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,15 +9,40 @@ namespace LearnProject
     public class ChooseAnswerFragment : MonoBehaviour, ILessonFragment
     {
         [SerializeField] private ChooseAnswerPreset _preset;
-        [SerializeField] private AudioSource _vfxAS, _hostAS;
+        [SerializeField] private AudioSource _aSource;
         [SerializeField] private float _animDuration = 0.35f;
+        [SerializeField] private float _correctAnimAmpl = 1.3f;
+        private bool _done = false;
         private List<ChooseAnswerPreset> _answers = new List<ChooseAnswerPreset>();
+        private int _tryCount;
 
-        public Task PlayFragment(LessonFragmentSO fragment)
+        public async Task PlayFragment(LessonFragmentSO fragment)
         {
-            CreateAnswers(fragment.ChooseAnswerData);
-            return Task.CompletedTask;
+            _done = false;
+            _tryCount = 0;
+            DestroyAnswers();
+            NextTry(fragment.ChooseAnswerData);
+            while (!_done)
+            {
+                await Task.Yield();
+            }
         }
+
+
+        private async void NextTry(ChooseAnswerData data)
+        {
+            CreateAnswers(data);
+            SetInteractableButtons(false);
+            var tasks = new Task[_answers.Count];
+            for (int i = 0; i < _answers.Count; i++)
+            {
+                // Appear animation
+                tasks[i] = _answers[i].RT.DOScale(1, _animDuration).SetEase(Ease.OutBounce, 2, 1).From(Vector3.zero).AsyncWaitForCompletion();
+            }
+            await Task.WhenAll(tasks);
+            SetInteractableButtons(true);
+        }
+
 
 
         private void CreateAnswers(ChooseAnswerData data)
@@ -28,10 +54,88 @@ namespace LearnProject
                 var answer = buffer[rand];
                 var obj = Instantiate(_preset, transform);
                 obj.Image.sprite = answer.Sprite;
+                obj.Button.onClick.AddListener(OnAnswerClick);
                 _answers.Add(obj);
                 buffer.RemoveAt(rand);
+
+
+                void OnAnswerClick()
+                {
+                    //obj.Button.onClick.RemoveListener(OnAnswerClick);
+                    SetInteractableButtons(false);
+                    if (answer.IsCorrect)
+                    {
+                        OnCorrectAnswer();
+                    }
+                    else
+                    {
+                        OnInCorrectAnswer();
+                    }
+                }
+
+
+                async void OnCorrectAnswer()
+                {
+                    if (_tryCount == 0)
+                    {
+                        // LOGIC TO ADD SCORE
+                    }
+
+
+                    var tasks = new Task[]
+                    {
+                        obj.RT.DOScale(_correctAnimAmpl, _animDuration / 2).SetLoops(2, LoopType.Yoyo).AsyncWaitForCompletion(),
+                        PlayAudioAsync(_aSource,data.ChooseCorrect)
+                    };
+                    await Task.WhenAll(tasks);
+                    await PlayAudioAsync(_aSource, data.ChooseCorrect);
+                    await DisapearAnimation();
+                    _done = true;
+                }
+
+
+                async void OnInCorrectAnswer()
+                {
+                    ++_tryCount;
+                    await obj.RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion();
+                    await DisapearAnimation();
+                    DestroyAnswers();
+                    NextTry(data);
+                }
             }
         }
+
+
+        private async Task PlayAudioAsync(AudioSource audioSource, AudioClip audioClip)
+        {
+            audioSource.PlayOneShot(audioClip);
+            while (audioSource.isPlaying)
+            {
+                await Task.Yield();
+            }
+        }
+
+
+        private async Task DisapearAnimation()
+        {
+            var tasks = new Task[_answers.Count];
+            for (int i = 0; i < _answers.Count; i++)
+            {
+                // Appear animation
+                tasks[i] = _answers[i].RT.DOScale(0, _animDuration).From(Vector3.one).AsyncWaitForCompletion();
+            }
+            await Task.WhenAll(tasks);
+        }
+
+
+        private void SetInteractableButtons(bool isInteractable)
+        {
+            foreach (var obj in _answers)
+            {
+                obj.Button.interactable = isInteractable;
+            }
+        }
+
 
 
         private void DestroyAnswers()

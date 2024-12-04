@@ -165,7 +165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lessonUIprefab: {fileID: 4752450059332443243, guid: 1c3af99034ea1ab478d2bb7dfac0e046, type: 3}
   _lessonFragments:
-  - {fileID: 11400000, guid: 9b356604ed8d8004a87cb2a2708278d6, type: 2}
   - {fileID: 11400000, guid: 996dffa26163f004e82aca6fc437dd48, type: 2}
 --- !u!1 &447583839
 GameObject:
