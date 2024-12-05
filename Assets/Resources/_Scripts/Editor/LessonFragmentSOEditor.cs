@@ -9,12 +9,14 @@ namespace LearnProject
     public class LessonFragmentSOEditor : Editor
     {
         private SerializedProperty _type;
+        private SerializedProperty _scoreToAdd;
         private SerializedProperty _videoData;
         private SerializedProperty _chooseAnswerData;
 
         private void OnEnable()
         {
             _type = serializedObject.FindProperty("_type");
+            _scoreToAdd = serializedObject.FindProperty("_scoreToAdd");
             _videoData = serializedObject.FindProperty("_videoData");
             _chooseAnswerData = serializedObject.FindProperty("_chooseAnswerData");
         }
@@ -32,6 +34,7 @@ namespace LearnProject
                     break;
 
                 case LessonFragmentType.ChooseCorrectAnswer:
+                    EditorGUILayout.PropertyField(_scoreToAdd);
                     EditorGUILayout.PropertyField(_chooseAnswerData);
                     break;
             }

@@ -10,6 +10,7 @@ namespace LearnProject
     {
         [SerializeField] private ChooseAnswerPreset _preset;
         [SerializeField] private AudioSource _aSource;
+        [SerializeField] private ParticleSystem _particleSystem;
         [SerializeField] private float _animDuration = 0.35f;
         [SerializeField] private float _correctAnimAmpl = 1.3f;
         private bool _done = false;
@@ -21,7 +22,7 @@ namespace LearnProject
             _done = false;
             _tryCount = 0;
             DestroyAnswers();
-            NextTry(fragment.ChooseAnswerData);
+            NextTry(fragment);
             while (!_done)
             {
                 await Task.Yield();
@@ -29,9 +30,9 @@ namespace LearnProject
         }
 
 
-        private async void NextTry(ChooseAnswerData data)
+        private async void NextTry(LessonFragmentSO fragment)
         {
-            CreateAnswers(data);
+            CreateAnswers(fragment);
             SetInteractableButtons(false);
             var tasks = new Task[_answers.Count];
             for (int i = 0; i < _answers.Count; i++)
@@ -40,15 +41,19 @@ namespace LearnProject
                 tasks[i] = _answers[i].RT.DOScale(1, _animDuration).SetEase(Ease.OutBounce, 2, 1).From(Vector3.zero).AsyncWaitForCompletion();
             }
             await Task.WhenAll(tasks);
+            if (_tryCount == 0)
+            {
+                await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseIntro);
+            }
             SetInteractableButtons(true);
         }
 
 
 
-        private void CreateAnswers(ChooseAnswerData data)
+        private void CreateAnswers(LessonFragmentSO fragment)
         {
-            var buffer = data.Answers.ToList();
-            for (int i = 0; i < data.Answers.Length; i++)
+            var buffer = fragment.ChooseAnswerData.Answers.ToList();
+            for (int i = 0; i < fragment.ChooseAnswerData.Answers.Length; i++)
             {
                 int rand = Random.Range(0, buffer.Count);
                 var answer = buffer[rand];
@@ -61,7 +66,6 @@ namespace LearnProject
 
                 void OnAnswerClick()
                 {
-                    //obj.Button.onClick.RemoveListener(OnAnswerClick);
                     SetInteractableButtons(false);
                     if (answer.IsCorrect)
                     {
@@ -78,17 +82,19 @@ namespace LearnProject
                 {
                     if (_tryCount == 0)
                     {
-                        // LOGIC TO ADD SCORE
+                        LessonManager.AddScore(fragment.ScoreToAdd);
+                        LessonManager.ShowAddedScore(obj.transform.position, fragment.ScoreToAdd);
                     }
 
-
+                    _particleSystem.transform.position = obj.transform.position;
+                    _particleSystem.Play();
                     var tasks = new Task[]
                     {
                         obj.RT.DOScale(_correctAnimAmpl, _animDuration / 2).SetLoops(2, LoopType.Yoyo).AsyncWaitForCompletion(),
-                        PlayAudioAsync(_aSource,data.ChooseCorrect)
+                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.ChooseCorrect)
                     };
                     await Task.WhenAll(tasks);
-                    await PlayAudioAsync(_aSource, data.ChooseCorrect);
+                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseCorrectHost);
                     await DisapearAnimation();
                     _done = true;
                 }
@@ -97,10 +103,16 @@ namespace LearnProject
                 async void OnInCorrectAnswer()
                 {
                     ++_tryCount;
-                    await obj.RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion();
+                    var tasks = new Task[]
+                    {
+                        obj.RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion(),
+                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.ChooseUncorrect)
+                    };
+                    await Task.WhenAll(tasks);
+                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseUncorrectHost);
                     await DisapearAnimation();
                     DestroyAnswers();
-                    NextTry(data);
+                    NextTry(fragment);
                 }
             }
         }

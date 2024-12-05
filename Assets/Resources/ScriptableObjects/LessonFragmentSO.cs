@@ -11,9 +11,11 @@ namespace LearnProject
         private LessonFragmentType _oldType; // Allows to reset an object when changing its type
         [SerializeField] private PlayVideoData _videoData;
         [SerializeField] private ChooseAnswerData _chooseAnswerData;
+        [SerializeField] private int _scoreToAdd;
 
         public PlayVideoData PlayVideoData { get { return _videoData; } }
         public ChooseAnswerData ChooseAnswerData { get { return _chooseAnswerData; } }
+        public int ScoreToAdd { get { return _scoreToAdd; } }
         public LessonFragmentType Type { get { return _type; } }
 
 
@@ -21,18 +23,6 @@ namespace LearnProject
         {
             PlayVideo = 0,
             ChooseCorrectAnswer = 1
-        }
-
-
-        private void OnValidate()
-        {
-            // Reset object
-            if (_type != _oldType)
-            {
-                _videoData = new PlayVideoData();
-                _chooseAnswerData = new ChooseAnswerData();
-                _oldType = _type;
-            }
         }
     }
 
@@ -63,9 +53,6 @@ namespace LearnProject
     public class AnswerData
     {
         [field: SerializeField] public Sprite Sprite { get; private set; }
-        [SerializeField] private bool _isCorrect;
-        public bool IsCorrect { get { return _isCorrect; } }
-        [field: ConditionalHide(nameof(_isCorrect))]
-        [field: SerializeField] public int ScoreToAdd { get; private set; }
+        [field: SerializeField] public bool IsCorrect { get; private set; }
     }
 }

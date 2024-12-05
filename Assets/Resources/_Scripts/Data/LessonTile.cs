@@ -9,5 +9,6 @@ namespace LearnProject
         [field: SerializeField] public Image TileImage { get; private set; }
         [field: SerializeField] public Button TileButton { get; private set; }
         [field: SerializeField] public TextMeshProUGUI TileText { get; private set; }
+        [field: SerializeField] public Image CheckMark { get; private set; }
     }
 }

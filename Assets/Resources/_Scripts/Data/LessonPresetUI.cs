@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace LearnProject
@@ -13,5 +14,7 @@ namespace LearnProject
         [field: SerializeField] public RectTransform TransitionRT { get; private set; }
         [field: SerializeField] public PlayVideoFragment VideoFragmentManager { get; private set; }
         [field: SerializeField] public ChooseAnswerFragment ChooseAnswerManager { get; private set; }
+        [field: SerializeField] public TextMeshProUGUI ScoreText { get; private set; }
+        [field: SerializeField] public ShowAddedScoreData AddedScore { get; private set; }
     }
 }
