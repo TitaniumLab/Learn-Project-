@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
@@ -25,13 +24,18 @@ namespace LearnProject
         }
 
 
+        private void Start()
+        {
+            SceneTransitionAnimator.PlayTransitionAsync(1, 0);
+        }
+
+
         private void SetLessonTile(DataBundleForLessonTileSO lessonTileData)
         {
             var tile = Instantiate(_lessonTilePrefab, _tilesLayout);
             tile.TileImage.sprite = lessonTileData.Sprite;
             tile.TileText.text = lessonTileData.LessonName;
-            Debug.Log(lessonTileData.Scene.editorAsset.name);
-            tile.CheckMark.enabled = Convert.ToBoolean(PlayerPrefs.GetInt(lessonTileData.Scene.SubObjectName));
+            tile.CheckMark.enabled = Convert.ToBoolean(PlayerPrefs.GetInt(lessonTileData.Scene.editorAsset.name));
             tile.TileButton.onClick.AddListener(async () =>
             {
 

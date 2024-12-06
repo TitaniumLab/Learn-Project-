@@ -43,7 +43,7 @@ namespace LearnProject
             await Task.WhenAll(tasks);
             if (_tryCount == 0)
             {
-                await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseIntro);
+                await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.IntroHost);
             }
             SetInteractableButtons(true);
         }
@@ -91,10 +91,10 @@ namespace LearnProject
                     var tasks = new Task[]
                     {
                         obj.RT.DOScale(_correctAnimAmpl, _animDuration / 2).SetLoops(2, LoopType.Yoyo).AsyncWaitForCompletion(),
-                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.ChooseCorrect)
+                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.CorrectVFX)
                     };
                     await Task.WhenAll(tasks);
-                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseCorrectHost);
+                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.CorrectHost);
                     await DisapearAnimation();
                     _done = true;
                 }
@@ -106,10 +106,10 @@ namespace LearnProject
                     var tasks = new Task[]
                     {
                         obj.RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion(),
-                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.ChooseUncorrect)
+                        PlayAudioAsync(_aSource,fragment.ChooseAnswerData.IncorrectVFX)
                     };
                     await Task.WhenAll(tasks);
-                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.ChooseUncorrectHost);
+                    await PlayAudioAsync(_aSource, fragment.ChooseAnswerData.IncorrectHost);
                     await DisapearAnimation();
                     DestroyAnswers();
                     NextTry(fragment);
