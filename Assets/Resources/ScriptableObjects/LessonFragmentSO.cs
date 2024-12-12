@@ -13,9 +13,10 @@ namespace LearnProject
         [SerializeField] private PlayVideoData _videoData;
         [SerializeField] private ChooseAnswerData _chooseAnswerData;
         [SerializeField] private int _scoreToAdd;
-
+        [SerializeField] private PlayAudio _playAudioData;
         public PlayVideoData PlayVideoData { get { return _videoData; } }
         public ChooseAnswerData ChooseAnswerData { get { return _chooseAnswerData; } }
+        public PlayAudio PlayAudioData { get { return _playAudioData; } }
         public int ScoreToAdd { get { return _scoreToAdd; } }
         public LessonFragmentType Type { get { return _type; } }
 
@@ -32,6 +33,7 @@ namespace LearnProject
             {
                 _videoData = new PlayVideoData();
                 _chooseAnswerData = new ChooseAnswerData();
+                _playAudioData = new PlayAudio();
                 _scoreToAdd = 0;
                 _oldType = _type;
             }
@@ -42,9 +44,18 @@ namespace LearnProject
         public enum LessonFragmentType
         {
             PlayVideo = 0,
-            ChooseCorrectAnswer = 1
+            ChooseCorrectAnswer = 1,
+            PlayAudio = 2,
         }
     }
+
+    [Serializable]
+    public class PlayAudio
+    {
+        [field: SerializeField] public AudioClip AudioClip { get; private set; }
+    }
+
+
 
     [Serializable]
     public class PlayVideoData

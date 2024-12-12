@@ -103,9 +103,15 @@ namespace LearnProject
                 async void OnInCorrectAnswer()
                 {
                     ++_tryCount;
+                    var animTask = new Task[_answers.Count];
+                    for (int j = 0; j < _answers.Count; j++)
+                    {
+                        animTask[j] = _answers[j].RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion();
+                    }
+
                     var tasks = new Task[]
                     {
-                        obj.RT.DOPunchRotation(new Vector3(0, 0, 30), _animDuration, 8).AsyncWaitForCompletion(),
+                        Task.WhenAll(animTask),
                         PlayAudioAsync(_aSource,fragment.ChooseAnswerData.IncorrectVFX)
                     };
                     await Task.WhenAll(tasks);

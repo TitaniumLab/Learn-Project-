@@ -1,7 +1,6 @@
 using DG.Tweening;
 using System;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using static LearnProject.LessonFragmentSO;
@@ -20,7 +19,7 @@ namespace LearnProject
         private TextMeshProUGUI _scoreText;
         private int _count = 0;
 
-        private ILessonFragment _videoF, _chooseAnswerF;
+        private ILessonFragment _videoF, _chooseAnswerF, _audioFragment;
 
 
         private void Awake()
@@ -30,6 +29,7 @@ namespace LearnProject
 
             _videoF = lessonUI.VideoFragmentManager;
             _chooseAnswerF = lessonUI.ChooseAnswerManager;
+            _audioFragment = lessonUI.PlayAudioFragment;
 
             _scoreText = lessonUI.ScoreText;
             _showAddedScore = lessonUI.AddedScore;
@@ -66,6 +66,9 @@ namespace LearnProject
                     break;
                 case LessonFragmentType.ChooseCorrectAnswer:
                     await _chooseAnswerF.PlayFragment(_lessonFragments[_count]);
+                    break;
+                case LessonFragmentType.PlayAudio:
+                    await _audioFragment.PlayFragment(_lessonFragments[_count]);
                     break;
             }
 

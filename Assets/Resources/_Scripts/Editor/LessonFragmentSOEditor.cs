@@ -11,6 +11,7 @@ namespace LearnProject
         private SerializedProperty _scoreToAdd;
         private SerializedProperty _videoData;
         private SerializedProperty _chooseAnswerData;
+        private SerializedProperty _playAudioData;
 
         private void OnEnable()
         {
@@ -18,6 +19,7 @@ namespace LearnProject
             _scoreToAdd = serializedObject.FindProperty("_scoreToAdd");
             _videoData = serializedObject.FindProperty("_videoData");
             _chooseAnswerData = serializedObject.FindProperty("_chooseAnswerData");
+            _playAudioData = serializedObject.FindProperty("_playAudioData");
         }
 
         public override void OnInspectorGUI()
@@ -35,6 +37,9 @@ namespace LearnProject
                 case LessonFragmentType.ChooseCorrectAnswer:
                     EditorGUILayout.PropertyField(_scoreToAdd);
                     EditorGUILayout.PropertyField(_chooseAnswerData);
+                    break;
+                case LessonFragmentType.PlayAudio:
+                    EditorGUILayout.PropertyField(_playAudioData);
                     break;
             }
             serializedObject.ApplyModifiedProperties();

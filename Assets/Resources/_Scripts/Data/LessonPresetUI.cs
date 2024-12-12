@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Playables;
 
 namespace LearnProject
 {
@@ -16,5 +17,6 @@ namespace LearnProject
         [field: SerializeField] public ChooseAnswerFragment ChooseAnswerManager { get; private set; }
         [field: SerializeField] public TextMeshProUGUI ScoreText { get; private set; }
         [field: SerializeField] public ShowAddedScoreData AddedScore { get; private set; }
+        [field: SerializeField] public PlayAudioFragment PlayAudioFragment { get; private set; }
     }
 }
