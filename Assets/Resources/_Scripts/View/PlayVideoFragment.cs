@@ -11,13 +11,12 @@ namespace LearnProject
         [SerializeField] private VideoPlayer _videoPlayer;
 
         [SerializeField] private RectTransform _videoImage;
-        [SerializeField] private float _apperDuration = 0.5f;
         [SerializeField] private string _videoFolderName = "Videos";
 
-        //private void Awake()
-        //{
-        //    _videoImage.localScale = Vector3.zero;
-        //}
+        private void Awake()
+        {
+            _videoPlayer.targetTexture.Release();
+        }
 
         public async Task PlayFragment(LessonFragmentSO fragment)
         {
@@ -26,7 +25,6 @@ namespace LearnProject
 
         private async Task PlayVideo(string videoName)
         {
-            //_videoPlayer.targetTexture.Release();// Prevents the first incorrect frame from appearing
             var path = Path.Combine(Application.streamingAssetsPath, _videoFolderName, $"{videoName}.webm");
             Debug.Log($"Read video from: {path}");
             _videoPlayer.url = path;
@@ -34,7 +32,6 @@ namespace LearnProject
             _videoPlayer.loopPointReached += delegate { OnVideoEnd(); };
             _videoPlayer.Play();
 
-            //await _videoImage.DOScale(1, _apperDuration).From(Vector3.zero).AsyncWaitForCompletion();
             bool end = false;
             while (!end)
             {
@@ -44,8 +41,7 @@ namespace LearnProject
             void OnVideoEnd()
             {
                 _videoPlayer.loopPointReached -= delegate { OnVideoEnd(); };
-                _videoPlayer.targetTexture.Release();
-                //await _videoImage.DOScale(0, _apperDuration).From(Vector3.one).AsyncWaitForCompletion();
+
                 end = true;
             }
         }

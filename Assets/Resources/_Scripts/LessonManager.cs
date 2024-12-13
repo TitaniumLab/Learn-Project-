@@ -12,6 +12,7 @@ namespace LearnProject
         [SerializeField] private LessonPresetUI _lessonUIprefab;
         [SerializeField] private LessonFragmentSO[] _lessonFragments;
         [SerializeField] private float _showScoreDuration = 3;
+        [SerializeField] private string _sceneName;
         private ShowAddedScoreData _showAddedScore;
         private static LessonManager _instance;
         private int _maxScore = 0;
@@ -80,12 +81,12 @@ namespace LearnProject
 
         private async void OnLessonEnd()
         {
-            var isDone = Convert.ToBoolean(PlayerPrefs.GetInt(SceneManager.GetActiveScene().name));
+            var isDone = Convert.ToBoolean(PlayerPrefs.GetInt(_sceneName));
             Debug.Log(SceneManager.GetActiveScene().name);
             if (!isDone && _maxScore == _currentScore)
             {
                 Debug.Log(SceneManager.GetActiveScene().name);
-                PlayerPrefs.SetInt(SceneManager.GetActiveScene().name, 1);
+                PlayerPrefs.SetInt(_sceneName, 1);
             }
             await SceneTransitionAnimator.PlayTransitionAsync(0, 1);
 

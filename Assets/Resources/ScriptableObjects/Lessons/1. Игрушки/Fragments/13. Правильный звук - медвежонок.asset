@@ -26,9 +26,9 @@ MonoBehaviour:
     - <Sprite>k__BackingField: {fileID: 135998808282590382, guid: bb2e8f3b0ecb7864f98175ab79e38161, type: 3}
       <IsCorrect>k__BackingField: 0
     - <Sprite>k__BackingField: {fileID: 8128884266821378550, guid: bb2e8f3b0ecb7864f98175ab79e38161, type: 3}
-      <IsCorrect>k__BackingField: 0
-    - <Sprite>k__BackingField: {fileID: -8401333463682384356, guid: bb2e8f3b0ecb7864f98175ab79e38161, type: 3}
       <IsCorrect>k__BackingField: 1
+    - <Sprite>k__BackingField: {fileID: -8401333463682384356, guid: bb2e8f3b0ecb7864f98175ab79e38161, type: 3}
+      <IsCorrect>k__BackingField: 0
   _scoreToAdd: 1
   _playAudioData:
     <AudioClip>k__BackingField: {fileID: 0}
